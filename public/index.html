@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoCare - Oto Servis ve Bakım Yönetim Sistemi</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Custom Style -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Background Glows -->
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo">
+      <i class="fa-solid fa-gears spinner"></i>
+      <span>AutoCare</span>
+    </div>
+    <nav class="nav-menu">
+      <button class="nav-btn active" data-tab="dashboard">
+        <i class="fa-solid fa-chart-line"></i> Dashboard
+      </button>
+      <button class="nav-btn" data-tab="customers">
+        <i class="fa-solid fa-users"></i> Müşteriler
+      </button>
+      <button class="nav-btn" data-tab="vehicles">
+        <i class="fa-solid fa-car"></i> Araçlar
+      </button>
+      <button class="nav-btn" data-tab="services">
+        <i class="fa-solid fa-wrench"></i> Hizmetler & Ürünler
+      </button>
+      <button class="nav-btn" data-tab="jobs">
+        <i class="fa-solid fa-clipboard-list"></i> Servis İşlemleri
+      </button>
+      <button class="nav-btn" data-tab="payments">
+        <i class="fa-solid fa-credit-card"></i> Ödemeler
+      </button>
+    </nav>
+    <div class="sidebar-footer">
+      <span>AutoCare v1.0.0</span>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-title">
+        <h1 id="tab-title">Dashboard</h1>
+        <p id="tab-subtitle">İşletmenizin genel durumu ve finansal özetler</p>
+      </div>
+      <div class="user-profile">
+        <div class="user-info">
+          <span class="user-name">İsmail</span>
+          <span class="user-role">Sistem Yöneticisi</span>
+        </div>
+        <div class="user-avatar">
+          <i class="fa-solid fa-user-gear"></i>
+        </div>
+      </div>
+    </header>
+
+    <!-- TAB: Dashboard -->
+    <section class="tab-pane active" id="tab-dashboard">
+      <!-- Stats Grid -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon icon-blue">
+            <i class="fa-solid fa-file-invoice-dollar"></i>
+          </div>
+          <div class="stat-info">
+            <h3>Toplam Ciro (Servisler)</h3>
+            <p class="stat-value" id="stat-sales">₺0.00</p>
+            <span class="stat-desc">Toplam uygulanan işlemler tutarı</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon icon-green">
+            <i class="fa-solid fa-hand-holding-dollar"></i>
+          </div>
+          <div class="stat-info">
+            <h3>Toplam Alınan Ödeme</h3>
+            <p class="stat-value" id="stat-payments">₺0.00</p>
+            <span class="stat-desc">Müşterilerden tahsil edilen nakit/kart</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon icon-purple">
+            <i class="fa-solid fa-scale-balanced"></i>
+          </div>
+          <div class="stat-info">
+            <h3>Bekleyen Bakiye (Alacaklar)</h3>
+            <p class="stat-value" id="stat-balance">₺0.00</p>
+            <span class="stat-desc">Tahsil edilmemiş toplam tutar</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions and Info -->
+      <div class="dashboard-details">
+        <div class="details-card glass-panel">
+          <div class="card-header">
+            <h2>Hızlı İpuçları ve Tetikleyici Testi</h2>
+          </div>
+          <div class="card-body">
+            <p><strong>Ödev Kuralları Uygulama Notları:</strong></p>
+            <ul>
+              <li><strong>N-Katmanlı Mimari:</strong> Uygulama; Sunum Katmanı (Web UI), İş Mantığı Katmanı (BL) ve Veri Erişim Katmanı (DAL) olarak bölünmüştür.</li>
+              <li><strong>Stored Procedures:</strong> Tüm veritabanı sorguları (`SELECT/INSERT/UPDATE/DELETE`) KESİNLİKLE sunucu kodlarında yazılmamış olup, sadece `mysql2` kütüphanesiyle veritabanındaki Stored Procedure'ler çağrılarak (`CALL`) yapılmıştır.</li>
+              <li><strong>Tetikleyiciler (Triggers):</strong>
+                <ul>
+                  <li><code>tg_stok_kontrol</code>: Servis işlemlerinde yedek parça (Birim: Adet) eklendiğinde stoğun 1'den küçük olması durumunda hata fırlatır.</li>
+                  <li><code>tg_stok_azalt</code>: İşlem eklendiğinde yedek parça stoğunu 1 azaltır.</li>
+                  <li><code>tg_stok_arttir</code>: İşlem silindiğinde yedek parça stoğunu 1 arttırır.</li>
+                </ul>
+              </li>
+              <li><strong>Fonksiyonlar (Functions):</strong> Müşteri bakiyesi ve araç servis sayıları MySQL fonksiyonları (<code>fn_MusteriBakiye</code>, <code>fn_AracServisSayisi</code>) olarak kodlanmış ve tabloda sunulmuştur.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB: Müşteriler -->
+    <section class="tab-pane" id="tab-customers">
+      <div class="toolbar">
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="search-customer" placeholder="Müşteri adı, telefonu, maili veya adresi ile ara...">
+        </div>
+        <button class="btn btn-primary" onclick="openCustomerModal()">
+          <i class="fa-solid fa-user-plus"></i> Yeni Müşteri Ekle
+        </button>
+      </div>
+
+      <div class="table-container glass-panel">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Müşteri Adı Soyadı</th>
+              <th>Telefon</th>
+              <th>E-Mail</th>
+              <th>Adres</th>
+              <th>Güncel Bakiye</th>
+              <th class="actions-col">İşlemler</th>
+            </tr>
+          </thead>
+          <tbody id="customer-table-body">
+            <!-- Dinamik yüklenecektir -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- TAB: Araçlar -->
+    <section class="tab-pane" id="tab-vehicles">
+      <div class="toolbar">
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="search-vehicle" placeholder="Plaka, marka, model veya araç sahibi ile ara...">
+        </div>
+        <button class="btn btn-primary" onclick="openVehicleModal()">
+          <i class="fa-solid fa-car-side"></i> Yeni Araç Ekle
+        </button>
+      </div>
+
+      <div class="table-container glass-panel">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Araç Sahibi</th>
+              <th>Plaka</th>
+              <th>Marka</th>
+              <th>Model</th>
+              <th>Yıl</th>
+              <th>Şasi No</th>
+              <th>Servis Sayısı</th>
+              <th class="actions-col">İşlemler</th>
+            </tr>
+          </thead>
+          <tbody id="vehicle-table-body">
+            <!-- Dinamik yüklenecektir -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- TAB: Hizmetler & Ürünler -->
+    <section class="tab-pane" id="tab-services">
+      <div class="toolbar">
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="search-service" placeholder="Hizmet adı veya kategori ile ara...">
+        </div>
+        <button class="btn btn-primary" onclick="openServiceModal()">
+          <i class="fa-solid fa-circle-plus"></i> Yeni Hizmet/Ürün Ekle
+        </button>
+      </div>
+
+      <div class="table-container glass-panel">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Hizmet/Ürün Adı</th>
+              <th>Kategori</th>
+              <th>Birim Fiyatı</th>
+              <th>Mevcut Stok</th>
+              <th>Birim</th>
+              <th>Detaylar</th>
+              <th class="actions-col">İşlemler</th>
+            </tr>
+          </thead>
+          <tbody id="service-table-body">
+            <!-- Dinamik yüklenecektir -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- TAB: Servis İşlemleri -->
+    <section class="tab-pane" id="tab-jobs">
+      <div class="toolbar">
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="search-job" placeholder="Plaka, müşteri veya uygulanan hizmet ile ara...">
+        </div>
+        <button class="btn btn-primary" onclick="openJobModal()">
+          <i class="fa-solid fa-file-signature"></i> Yeni Servis İşlemi Yap
+        </button>
+      </div>
+
+      <div class="table-container glass-panel">
+        <table>
+          <thead>
+            <tr>
+              <th>İşlem ID</th>
+              <th>Müşteri Ad Soyad</th>
+              <th>Araç Plakası & Detayı</th>
+              <th>Uygulanan Hizmet</th>
+              <th>Kategori</th>
+              <th>Tarih</th>
+              <th>İşlem Tutarı</th>
+              <th class="actions-col">İşlemler</th>
+            </tr>
+          </thead>
+          <tbody id="job-table-body">
+            <!-- Dinamik yüklenecektir -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- TAB: Ödemeler -->
+    <section class="tab-pane" id="tab-payments">
+      <div class="toolbar">
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="search-payment" placeholder="Müşteri adı veya ödeme türü ile ara...">
+        </div>
+        <button class="btn btn-primary" onclick="openPaymentModal()">
+          <i class="fa-solid fa-money-bill-transfer"></i> Yeni Ödeme Al
+        </button>
+      </div>
+
+      <div class="table-container glass-panel">
+        <table>
+          <thead>
+            <tr>
+              <th>Ödeme ID</th>
+              <th>Müşteri Ad Soyad</th>
+              <th>Tarih</th>
+              <th>Tahsil Edilen Tutar</th>
+              <th>Ödeme Türü</th>
+              <th>Açıklama</th>
+              <th class="actions-col">İşlemler</th>
+            </tr>
+          </thead>
+          <tbody id="payment-table-body">
+            <!-- Dinamik yüklenecektir -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- =========================================================================
+  MODALLAR (MODALS)
+  ========================================================================= -->
+
+  <!-- Modal: Müşteri Ekle/Düzenle -->
+  <div class="modal-overlay" id="customer-modal">
+    <div class="modal glass-panel">
+      <div class="modal-header">
+        <h2 id="customer-modal-title">Müşteri Ekle</h2>
+        <button class="modal-close" onclick="closeModal('customer-modal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="customer-form">
+        <input type="hidden" id="customer-id">
+        <div class="form-group">
+          <label for="customer-ad">Müşteri Adı</label>
+          <input type="text" id="customer-ad" required placeholder="Örn: Ahmet">
+        </div>
+        <div class="form-group">
+          <label for="customer-soyad">Müşteri Soyadı</label>
+          <input type="text" id="customer-soyad" required placeholder="Örn: Yılmaz">
+        </div>
+        <div class="form-group">
+          <label for="customer-tel">Telefon Numarası</label>
+          <input type="text" id="customer-tel" required placeholder="Örn: 0555-123-4567">
+        </div>
+        <div class="form-group">
+          <label for="customer-mail">E-Mail Adresi</label>
+          <input type="email" id="customer-mail" placeholder="Örn: ahmet@mail.com">
+        </div>
+        <div class="form-group">
+          <label for="customer-adres">Adres</label>
+          <textarea id="customer-adres" rows="3" placeholder="Açık adresi yazınız..."></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('customer-modal')">İptal</button>
+          <button type="submit" class="btn btn-primary">Kaydet</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Araç Ekle/Düzenle -->
+  <div class="modal-overlay" id="vehicle-modal">
+    <div class="modal glass-panel">
+      <div class="modal-header">
+        <h2 id="vehicle-modal-title">Araç Ekle</h2>
+        <button class="modal-close" onclick="closeModal('vehicle-modal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="vehicle-form">
+        <input type="hidden" id="vehicle-id">
+        <div class="form-group">
+          <label for="vehicle-musteri">Araç Sahibi (Müşteri)</label>
+          <select id="vehicle-musteri" required>
+            <!-- Müşteriler dinamik yüklenecektir -->
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="vehicle-plaka">Plaka</label>
+          <input type="text" id="vehicle-plaka" required placeholder="Örn: 34ABC123">
+        </div>
+        <div class="form-group">
+          <label for="vehicle-marka">Marka</label>
+          <input type="text" id="vehicle-marka" required placeholder="Örn: Toyota">
+        </div>
+        <div class="form-group">
+          <label for="vehicle-model">Model</label>
+          <input type="text" id="vehicle-model" required placeholder="Örn: Corolla">
+        </div>
+        <div class="form-group">
+          <label for="vehicle-yil">Model Yılı</label>
+          <input type="number" id="vehicle-yil" required placeholder="Örn: 2018" min="1950" max="2027">
+        </div>
+        <div class="form-group">
+          <label for="vehicle-sasi">Şasi Numarası</label>
+          <input type="text" id="vehicle-sasi" placeholder="17 haneli şasi numarasını girin...">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('vehicle-modal')">İptal</button>
+          <button type="submit" class="btn btn-primary">Kaydet</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Hizmet/Ürün Ekle/Düzenle -->
+  <div class="modal-overlay" id="service-modal">
+    <div class="modal glass-panel">
+      <div class="modal-header">
+        <h2 id="service-modal-title">Hizmet/Ürün Ekle</h2>
+        <button class="modal-close" onclick="closeModal('service-modal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="service-form">
+        <input type="hidden" id="service-id">
+        <div class="form-group">
+          <label for="service-ad">Hizmet/Ürün Adı</label>
+          <input type="text" id="service-ad" required placeholder="Örn: Ön Fren Balatası Değişimi">
+        </div>
+        <div class="form-group">
+          <label for="service-kategori">Kategori</label>
+          <input type="text" id="service-kategori" required placeholder="Örn: Fren Sistemi">
+        </div>
+        <div class="form-group">
+          <label for="service-fiyat">Birim Fiyatı (₺)</label>
+          <input type="number" id="service-fiyat" required placeholder="Örn: 1200" min="0" step="0.01">
+        </div>
+        <div class="form-group">
+          <label for="service-stok">Mevcut Stok</label>
+          <input type="number" id="service-stok" required placeholder="Örn: 5" min="0" step="0.1">
+        </div>
+        <div class="form-group">
+          <label for="service-birim">Birim</label>
+          <select id="service-birim" required>
+            <option value="Adet">Adet (Stoklu yedek parça için)</option>
+            <option value="Saat">Saat (İşçilik hizmeti için)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="service-detay">Detay/Açıklama</label>
+          <textarea id="service-detay" rows="3" placeholder="Hizmet detaylarını yazınız..."></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('service-modal')">İptal</button>
+          <button type="submit" class="btn btn-primary">Kaydet</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Servis İşlemi Ekle/Düzenle -->
+  <div class="modal-overlay" id="job-modal">
+    <div class="modal glass-panel">
+      <div class="modal-header">
+        <h2 id="job-modal-title">Yeni Servis İşlemi</h2>
+        <button class="modal-close" onclick="closeModal('job-modal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="job-form">
+        <input type="hidden" id="job-id">
+        <div class="form-group">
+          <label for="job-arac">Servis Görecek Araç</label>
+          <select id="job-arac" required>
+            <!-- Araçlar dinamik yüklenecektir -->
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="job-hizmet">Uygulanacak Hizmet/Ürün</label>
+          <select id="job-hizmet" required onchange="updateJobPriceFromService()">
+            <!-- Hizmetler dinamik yüklenecektir -->
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="job-tarih">Tarih & Saat</label>
+          <input type="datetime-local" id="job-tarih" required>
+        </div>
+        <div class="form-group">
+          <label for="job-fiyat">İşlem Fiyatı (₺)</label>
+          <input type="number" id="job-fiyat" required placeholder="Fiyat otomatik doldurulur..." min="0" step="0.01">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('job-modal')">İptal</button>
+          <button type="submit" class="btn btn-primary">İşlemi Tamamla</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Ödeme Al/Düzenle -->
+  <div class="modal-overlay" id="payment-modal">
+    <div class="modal glass-panel">
+      <div class="modal-header">
+        <h2 id="payment-modal-title">Ödeme Al</h2>
+        <button class="modal-close" onclick="closeModal('payment-modal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="payment-form">
+        <input type="hidden" id="payment-id">
+        <div class="form-group">
+          <label for="payment-musteri">Ödeme Yapan Müşteri</label>
+          <select id="payment-musteri" required>
+            <!-- Müşteriler dinamik yüklenecektir -->
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="payment-tarih">Tarih & Saat</label>
+          <input type="datetime-local" id="payment-tarih" required>
+        </div>
+        <div class="form-group">
+          <label for="payment-tutar">Tahsil Edilen Tutar (₺)</label>
+          <input type="number" id="payment-tutar" required placeholder="Miktar girin..." min="0" step="0.01">
+        </div>
+        <div class="form-group">
+          <label for="payment-tur">Ödeme Türü</label>
+          <select id="payment-tur" required>
+            <option value="Nakit">Nakit</option>
+            <option value="Kredi Kartı">Kredi Kartı</option>
+            <option value="Banka Havalesi">Banka Havalesi</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="payment-aciklama">Açıklama</label>
+          <textarea id="payment-aciklama" rows="3" placeholder="Ödeme detayını yazınız..."></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('payment-modal')">İptal</button>
+          <button type="submit" class="btn btn-primary">Ödemeyi Kaydet</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Main JavaScript File -->
+  <script src="js/app.js"></script>
+</body>
+</html>
